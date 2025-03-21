@@ -1,0 +1,123 @@
+/* src/app/globals.css */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 0.625rem;
+  --transition-duration: 0.6s;
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #f5f5f5;
+  --card-foreground: #000000;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #e5e5e5;
+  --secondary-foreground: #000000;
+  --muted: #d1d5db;
+  --muted-foreground: #4b5563;
+  --accent: #e5e7eb;
+  --accent-foreground: #000000;
+  --destructive: #dc2626;
+  --border: #d1d5db;
+  --input: #e5e7eb;
+  --ring: #60a5fa;
+  --highlight-bg: #bfdbfe;
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #ffffff;
+  --card: #2d2d2d;
+  --card-foreground: #ffffff;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #404040;
+  --secondary-foreground: #ffffff;
+  --muted: #525252;
+  --muted-foreground: #9ca3af;
+  --accent: #374151;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: #4b5563;
+  --input: #4b5563;
+  --ring: #93c5fd;
+  --highlight-bg: #1e40af;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+    outline-offset: 2px;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-family: var(--font-geist-sans);
+    transition: background-color var(--transition-duration) ease-in-out,
+                color var(--transition-duration) ease-in-out;
+  }
+
+/* src/app/globals.css (relevant excerpt) */
+body::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: var(--background);
+  transition: height var(--transition-duration) ease-in-out,
+              top var(--transition-duration) ease-in-out,
+              bottom var(--transition-duration) ease-in-out;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+body.theme-transition.dark::before {
+  height: 100%;
+  top: 0;
+  bottom: auto;
+  background: #1a1a1a;
+}
+
+body.theme-transition:not(.dark)::before {
+  height: 100%;
+  bottom: 0;
+  top: auto;
+  background: #ffffff;
+}
+
+body:not(.dark)::before {
+  top: 0;
+  height: 0;
+}
+
+body.dark::before {
+  top: 100%;
+  height: 0;
+}
+  .option-highlight {
+    background-color: var(--highlight-bg);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid var(--muted-foreground);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
