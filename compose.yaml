@@ -1,0 +1,13 @@
+version: '1'
+
+services:
+  itgs-base64-encoder:
+    build: .
+    ports:
+      - "3016:3000"
+    volumes:
+      - data-volume:/app/data
+    restart: unless-stopped
+
+volumes:
+  data-volume:

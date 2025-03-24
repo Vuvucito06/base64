@@ -4,7 +4,13 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { saveAs } from "file-saver";
-import { Copy, Download, Check, Loader2, Image } from "lucide-react";
+import {
+  Copy,
+  Download,
+  Check,
+  Loader2,
+  Image as ImageIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function OutputSection({
@@ -75,52 +81,52 @@ export default function OutputSection({
   const isDownloadReady = encodedText || decodedImagePreview;
 
   return (
-    <div className="p-6 bg-card rounded-xl shadow-md border border-border">
-      <h2 className="text-xl font-semibold mb-4 text-card-foreground">
+    <div className="bg-card border-border rounded-xl border p-6 shadow-md">
+      <h2 className="text-card-foreground mb-4 text-xl font-semibold">
         Output
       </h2>
 
       {decodedImagePreview ? (
-        <div className="w-full flex items-center justify-center bg-secondary border border-border rounded-md p-4 mb-4 min-h-[200px]">
+        <div className="bg-secondary border-border mb-4 flex min-h-[200px] w-full items-center justify-center rounded-md border p-4">
           <img
             src={decodedImagePreview}
             alt="Decoded"
-            className="max-w-full max-h-[300px] object-contain"
+            className="max-h-[300px] max-w-full object-contain"
           />
         </div>
       ) : isImage ? (
-        <div className="w-full flex flex-col items-center justify-center bg-secondary border border-border rounded-md p-4 mb-4 min-h-[200px]">
+        <div className="bg-secondary border-border mb-4 flex min-h-[200px] w-full flex-col items-center justify-center rounded-md border p-4">
           <p className="text-muted-foreground">Image encoded to Base64</p>
           {isDownloadReady && (
-            <p className="text-green-600 mt-2">Ready to download</p>
+            <p className="mt-2 text-green-600">Ready to download</p>
           )}
         </div>
       ) : (
-        <div className="relative w-full min-h-[200px]">
+        <div className="relative min-h-[200px] w-full">
           <Textarea
-            className="w-full bg-secondary border-border font-mono text-sm text-foreground resize-none focus:ring-2 focus:ring-primary min-h-[200px]"
+            className="bg-secondary border-border text-foreground focus:ring-primary min-h-[200px] w-full resize-none font-mono text-sm focus:ring-2"
             rows={8}
             placeholder="Your encoded text will appear here..."
             value={encodedText}
             readOnly
           />
           {isDownloadReady && (
-            <p className="absolute bottom-2 right-2 text-green-600 text-sm">
+            <p className="absolute right-2 bottom-2 text-sm text-green-600">
               Ready to download
             </p>
           )}
         </div>
       )}
 
-      <div className="flex space-x-3 mt-4">
+      <div className="mt-4 flex space-x-3">
         {!isImage && !decodedImagePreview && encodedText && (
           <Button
             className={cn(
-              "flex items-center space-x-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-lg",
+              "bg-primary hover:bg-primary/90 text-primary-foreground flex items-center space-x-2 rounded-lg py-2 font-medium",
               "transition-all duration-300",
               isCopied && "bg-primary/80 scale-105",
               "active:scale-95",
-              !encodedText && "opacity-50 cursor-not-allowed"
+              !encodedText && "cursor-not-allowed opacity-50",
             )}
             onClick={copyToClipboard}
             disabled={!encodedText}
@@ -136,11 +142,11 @@ export default function OutputSection({
 
         <Button
           className={cn(
-            "flex items-center space-x-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-lg",
+            "bg-primary hover:bg-primary/90 text-primary-foreground flex items-center space-x-2 rounded-lg py-2 font-medium",
             "transition-all duration-300",
             isDownloading && "bg-primary/80 scale-105",
             "active:scale-95",
-            !isDownloadReady && "opacity-50 cursor-not-allowed"
+            !isDownloadReady && "cursor-not-allowed opacity-50",
           )}
           onClick={downloadFile}
           disabled={!isDownloadReady}
@@ -148,7 +154,7 @@ export default function OutputSection({
           {isDownloading ? (
             <Loader2 className="h-5 w-5 animate-spin" />
           ) : decodedImagePreview ? (
-            <Image className="h-5 w-5 animate-pulse" />
+            <ImageIcon className="h-5 w-5 animate-pulse" />
           ) : (
             <Download className="h-5 w-5 animate-pulse" />
           )}
@@ -156,10 +162,10 @@ export default function OutputSection({
             {isDownloading
               ? "Downloading..."
               : decodedImagePreview
-              ? `Download Image (.${imageType})`
-              : isImage
-              ? "Download Base64"
-              : "Download"}
+                ? `Download Image (.${imageType})`
+                : isImage
+                  ? "Download Base64"
+                  : "Download"}
           </span>
         </Button>
       </div>

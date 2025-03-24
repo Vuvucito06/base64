@@ -28,7 +28,6 @@ export default function OptionsSection({
   inputText,
   isImage,
   isBase64Image,
-  isFileUploaded,
 }: OptionsSectionProps) {
   const [encodeEachLine, setEncodeEachLine] = useState(false);
   const [splitLines, setSplitLines] = useState(false);
@@ -138,8 +137,8 @@ export default function OptionsSection({
   };
 
   return (
-    <div className="p-6 bg-card rounded-xl shadow-md border border-border">
-      <h2 className="text-xl font-semibold mb-4 text-card-foreground">
+    <div className="bg-card border-border rounded-xl border p-6 shadow-md">
+      <h2 className="text-card-foreground mb-4 text-xl font-semibold">
         Base64 Options
       </h2>
 
@@ -149,7 +148,7 @@ export default function OptionsSection({
             <div
               className={cn(
                 "flex items-center space-x-3",
-                splitLines && "opacity-50"
+                splitLines && "opacity-50",
               )}
             >
               <Checkbox
@@ -186,10 +185,10 @@ export default function OptionsSection({
               onValueChange={setNewlineSeparator}
               disabled={isDisabled}
             >
-              <SelectTrigger className="w-full bg-secondary border text-foreground">
+              <SelectTrigger className="bg-secondary text-foreground w-full border">
                 <SelectValue placeholder="Select newline separator" />
               </SelectTrigger>
-              <SelectContent className="bg-background border text-card-foreground max-h-60 overflow-y-auto">
+              <SelectContent className="bg-background text-card-foreground max-h-60 overflow-y-auto border">
                 <SelectItem value="LF">LF (Unix)</SelectItem>
                 <SelectItem value="CRLF">CRLF (Windows)</SelectItem>
               </SelectContent>
@@ -199,10 +198,10 @@ export default function OptionsSection({
               onValueChange={setCharSet}
               disabled={isDisabled}
             >
-              <SelectTrigger className="w-full bg-secondary border text-foreground">
+              <SelectTrigger className="bg-secondary text-foreground w-full border">
                 <SelectValue placeholder="Select character set" />
               </SelectTrigger>
-              <SelectContent className="bg-background border text-card-foreground max-h-60 overflow-y-auto">
+              <SelectContent className="bg-background text-card-foreground max-h-60 overflow-y-auto border">
                 <SelectItem value="UTF-8">UTF-8</SelectItem>
                 <SelectItem value="ASCII">ASCII</SelectItem>
                 <SelectItem value="UTF-16">UTF-16</SelectItem>
@@ -274,16 +273,16 @@ export default function OptionsSection({
         </div>
 
         {isDisabled && (
-          <div className="py-4 px-4 bg-secondary rounded-md border border-border">
-            <div className="flex items-center text-sm text-muted-foreground">
+          <div className="bg-secondary border-border rounded-md border px-4 py-4">
+            <div className="text-muted-foreground flex items-center text-sm">
               {isBase64Image ? (
                 <>
-                  <Image className="h-4 w-4 mr-2" />
+                  <Image className="mr-2 h-4 w-4" />
                   <span>Base64 image detected - options disabled</span>
                 </>
               ) : (
                 <>
-                  <FileType className="h-4 w-4 mr-2" />
+                  <FileType className="mr-2 h-4 w-4" />
                   <span>Image detected - options disabled</span>
                 </>
               )}
@@ -294,7 +293,7 @@ export default function OptionsSection({
 
       {!isDisabled && (
         <Button
-          className="mt-6 w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 rounded-lg transition-all duration-300 active:scale-95"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground mt-6 w-full rounded-lg py-2 font-medium transition-all duration-300 active:scale-95"
           onClick={handleEncode}
         >
           Encode to Base64

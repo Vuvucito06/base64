@@ -12,7 +12,7 @@ export default function Home() {
   const [encodedText, setEncodedText] = useState("");
   const [isImage, setIsImage] = useState(false);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const setImagePreview = useState<string | null>(null)[1];
   const [decodedImagePreview, setDecodedImagePreview] = useState<string | null>(
     null,
   );
@@ -82,7 +82,7 @@ export default function Home() {
       setIsBase64Image(false);
       setDecodedImagePreview(null);
       return false;
-    } catch (error) {
+    } catch {
       setIsBase64Image(false);
       setDecodedImagePreview(null);
       return false;
@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </div>
       <footer className="bg-muted text-muted-foreground border-border flex items-center justify-center border-t py-4">
-        <p className="max-w-screen text-center text-sm text-slate-700 dark:text-slate-400">
+        <p className="max-w-screen text-center text-sm text-slate-500">
           © {new Date().getFullYear()} S.R.L ITGROUP & SERVICES. All rights
           reserved.
         </p>

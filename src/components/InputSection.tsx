@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { FileImage, File, Loader2, Image } from "lucide-react";
+import { FileImage, File, Loader2, Image as ImageIcon } from "lucide-react";
 
 export default function InputSection({
   setInputText,
@@ -27,7 +27,7 @@ export default function InputSection({
   const [fileContent, setFileContent] = useState("");
   const [isDropping, setIsDropping] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
-  const [fileType, setFileType] = useState<string | null>(null);
+  const setFileType = useState<string | null>(null)[1];
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   const onDrop = useCallback(
@@ -81,7 +81,7 @@ export default function InputSection({
       setImagePreview,
       onFileNameChange,
       checkBase64Image,
-    ]
+    ],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -128,36 +128,36 @@ export default function InputSection({
   };
 
   return (
-    <div className="p-6 bg-card rounded-xl shadow-md border border-border">
-      <h2 className="text-xl font-semibold mb-4 text-card-foreground">
+    <div className="bg-card border-border rounded-xl border p-6 shadow-md">
+      <h2 className="text-card-foreground mb-4 text-xl font-semibold">
         Insert Text or Image
       </h2>
 
       {imageSrc ? (
-        <div className="relative min-h-[200px] bg-secondary border border-border rounded-md flex items-center justify-center overflow-hidden">
+        <div className="bg-secondary border-border relative flex min-h-[200px] items-center justify-center overflow-hidden rounded-md border">
           {fileName && (
-            <div className="absolute top-2 right-2 bg-card px-2 py-1 rounded text-xs text-muted-foreground">
+            <div className="bg-card text-muted-foreground absolute top-2 right-2 rounded px-2 py-1 text-xs">
               {fileName}
             </div>
           )}
           <img
             src={imageSrc}
             alt="Preview"
-            className="max-w-full max-h-[300px] object-contain"
+            className="max-h-[300px] max-w-full object-contain"
           />
         </div>
       ) : isBase64Image ? (
-        <div className="relative min-h-[200px] bg-secondary border border-border rounded-md flex flex-col items-center justify-center overflow-hidden p-4">
-          <Image className="h-12 w-12 text-muted-foreground mb-2" />
-          <div className="text-center text-muted-foreground">
+        <div className="bg-secondary border-border relative flex min-h-[200px] flex-col items-center justify-center overflow-hidden rounded-md border p-4">
+          <ImageIcon className="text-muted-foreground mb-2 h-12 w-12" />
+          <div className="text-muted-foreground text-center">
             <p className="font-medium">Base64 Image Detected</p>
-            <p className="text-sm mt-1">Text contains an encoded image</p>
-            {fileName && <p className="text-xs mt-1">Source: {fileName}</p>}
+            <p className="mt-1 text-sm">Text contains an encoded image</p>
+            {fileName && <p className="mt-1 text-xs">Source: {fileName}</p>}
           </div>
         </div>
       ) : (
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 w-12 bg-secondary border-r border-border text-right pr-2 text-muted-foreground font-mono text-sm">
+          <div className="bg-secondary border-border text-muted-foreground absolute inset-y-0 left-0 w-12 border-r pr-2 text-right font-mono text-sm">
             {lines.map((line) => (
               <div key={line.number} className="h-6 leading-6">
                 {line.number}
@@ -165,7 +165,7 @@ export default function InputSection({
             ))}
           </div>
           <Textarea
-            className="w-full pl-14 bg-secondary border-border text-foreground font-mono text-sm resize-none focus:ring-2 focus:ring-primary min-h-[200px]"
+            className="bg-secondary border-border text-foreground focus:ring-primary min-h-[200px] w-full resize-none pl-14 font-mono text-sm focus:ring-2"
             rows={Math.max(lines.length, 8)}
             placeholder="Enter text or drop a file..."
             value={fileContent}
@@ -177,14 +177,14 @@ export default function InputSection({
       <div
         {...getRootProps()}
         className={cn(
-          "p-4 border-dashed border-2 rounded mt-4 text-center text-muted-foreground flex items-center justify-center h-20",
+          "text-muted-foreground mt-4 flex h-20 items-center justify-center rounded border-2 border-dashed p-4 text-center",
           isDragActive ? "border-primary bg-primary/10" : "border-border",
-          isDropping && "border-primary"
+          isDropping && "border-primary",
         )}
       >
         <input {...getInputProps()} />
         {isDropping ? (
-          <Loader2 className="h-6 w-6 animate-spin text-primary" />
+          <Loader2 className="text-primary h-6 w-6 animate-spin" />
         ) : (
           <div className="flex flex-col items-center">
             <div className="flex items-center space-x-2">
@@ -200,7 +200,7 @@ export default function InputSection({
       </div>
 
       <Button
-        className="mt-4 w-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-medium py-2 rounded-lg transition-all duration-300 active:scale-95"
+        className="bg-destructive hover:bg-destructive/90 text-destructive-foreground mt-4 w-full rounded-lg py-2 font-medium transition-all duration-300 active:scale-95"
         onClick={handleClear}
       >
         Clear
