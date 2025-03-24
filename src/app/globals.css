@@ -57,48 +57,15 @@
     overflow-x: hidden;
     min-height: 100vh;
     font-family: var(--font-geist-sans);
-    transition: background-color var(--transition-duration) ease-in-out,
-                color var(--transition-duration) ease-in-out;
+    transition:
+      background-color var(--transition-duration) ease-in-out,
+      color var(--transition-duration) ease-in-out;
   }
 
-/* src/app/globals.css (relevant excerpt) */
-body::before {
-  content: "";
-  position: fixed;
-  left: 0;
-  width: 100%;
-  height: 0;
-  background: var(--background);
-  transition: height var(--transition-duration) ease-in-out,
-              top var(--transition-duration) ease-in-out,
-              bottom var(--transition-duration) ease-in-out;
-  z-index: 9999;
-  pointer-events: none;
-}
+  .bg-background {
+    background-color: var(--background);
+  }
 
-body.theme-transition.dark::before {
-  height: 100%;
-  top: 0;
-  bottom: auto;
-  background: #1a1a1a;
-}
-
-body.theme-transition:not(.dark)::before {
-  height: 100%;
-  bottom: 0;
-  top: auto;
-  background: #ffffff;
-}
-
-body:not(.dark)::before {
-  top: 0;
-  height: 0;
-}
-
-body.dark::before {
-  top: 100%;
-  height: 0;
-}
   .option-highlight {
     background-color: var(--highlight-bg);
     border-radius: var(--radius);
@@ -119,5 +86,11 @@ body.dark::before {
     border-top: 3px solid var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
+  }
+
+  button:not([disabled]),
+  [role="button"]:not([disabled]),
+  [role="menuitem"]:not([disabled]) {
+    cursor: pointer;
   }
 }

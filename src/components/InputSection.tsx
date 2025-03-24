@@ -14,6 +14,7 @@ export default function InputSection({
   onFileNameChange,
   checkBase64Image,
   isBase64Image,
+  resetDecodedState, // Add the new prop
 }: {
   setInputText: (text: string) => void;
   setIsImage: (isImage: boolean) => void;
@@ -21,6 +22,7 @@ export default function InputSection({
   onFileNameChange: (name: string | null) => void;
   checkBase64Image: (text: string) => boolean;
   isBase64Image: boolean;
+  resetDecodedState: () => void; // Define the new prop type
 }) {
   const [fileContent, setFileContent] = useState("");
   const [isDropping, setIsDropping] = useState(false);
@@ -122,6 +124,7 @@ export default function InputSection({
     setFileType(null);
     setImageSrc(null);
     onFileNameChange(null);
+    resetDecodedState(); // Call the new function to reset decoded image states
   };
 
   return (

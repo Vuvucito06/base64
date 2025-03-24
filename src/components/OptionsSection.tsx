@@ -186,10 +186,10 @@ export default function OptionsSection({
               onValueChange={setNewlineSeparator}
               disabled={isDisabled}
             >
-              <SelectTrigger className="w-full bg-secondary border-border text-foreground">
+              <SelectTrigger className="w-full bg-secondary border text-foreground">
                 <SelectValue placeholder="Select newline separator" />
               </SelectTrigger>
-              <SelectContent className="bg-card border-border text-card-foreground">
+              <SelectContent className="bg-background border text-card-foreground max-h-60 overflow-y-auto">
                 <SelectItem value="LF">LF (Unix)</SelectItem>
                 <SelectItem value="CRLF">CRLF (Windows)</SelectItem>
               </SelectContent>
@@ -199,10 +199,10 @@ export default function OptionsSection({
               onValueChange={setCharSet}
               disabled={isDisabled}
             >
-              <SelectTrigger className="w-full bg-secondary border-border text-foreground">
+              <SelectTrigger className="w-full bg-secondary border text-foreground">
                 <SelectValue placeholder="Select character set" />
               </SelectTrigger>
-              <SelectContent className="bg-card border-border text-card-foreground max-h-60 overflow-y-auto">
+              <SelectContent className="bg-background border text-card-foreground max-h-60 overflow-y-auto">
                 <SelectItem value="UTF-8">UTF-8</SelectItem>
                 <SelectItem value="ASCII">ASCII</SelectItem>
                 <SelectItem value="UTF-16">UTF-16</SelectItem>

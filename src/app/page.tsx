@@ -5,6 +5,7 @@ import InputSection from "@/components/InputSection";
 import OptionsSection from "@/components/OptionsSection";
 import OutputSection from "@/components/OutputSection";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function Home() {
   const [inputText, setInputText] = useState("");
@@ -13,12 +14,17 @@ export default function Home() {
   const [isFileUploaded, setIsFileUploaded] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [decodedImagePreview, setDecodedImagePreview] = useState<string | null>(
-    null
+    null,
   );
   const [documentName, setDocumentName] = useState("encoded-data");
   const [originalFileName, setOriginalFileName] = useState<string | null>(null);
   const [isBase64Image, setIsBase64Image] = useState(false);
   const [imageType, setImageType] = useState("jpg");
+
+  const changeInputText = useDebouncedCallback(
+    (value: string) => setInputText(value),
+    1000,
+  );
 
   useEffect(() => {
     if (originalFileName) {
@@ -36,6 +42,12 @@ export default function Home() {
   const handleFileNameChange = (name: string | null) => {
     setOriginalFileName(name);
     setIsFileUploaded(!!name);
+  };
+
+  const resetDecodedState = () => {
+    setDecodedImagePreview(null);
+    setIsBase64Image(false);
+    setImageType("jpg"); // Reset to default image type
   };
 
   // Detect if input is a Base64 image and decode it instantly
@@ -78,21 +90,22 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <div className="flex-1 p-10 flex items-center justify-center">
-        <div className="max-w-5xl w-full space-y-10">
-          <div className="flex justify-between items-center">
+    <div className="bg-background text-foreground flex min-h-screen flex-col justify-between">
+      <div className="flex items-center justify-center px-6 py-4">
+        <div className="w-full max-w-5xl space-y-10">
+          <div className="flex items-center justify-between">
             <h1 className="text-4xl font-bold">Base64 Encoder</h1>
             <ThemeToggle />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
             <InputSection
-              setInputText={setInputText}
+              setInputText={changeInputText}
               setIsImage={setIsImage}
               setImagePreview={setImagePreview}
               onFileNameChange={handleFileNameChange}
               checkBase64Image={checkBase64Image}
               isBase64Image={isBase64Image}
+              resetDecodedState={resetDecodedState}
             />
             <div className="space-y-10">
               <OptionsSection
@@ -117,9 +130,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <footer className="flex items-center justify-center py-4 bg-muted text-muted-foreground border-t border-border">
-        <p className="text-base">
-          © {new Date().getFullYear()} Base64 Encoder. All rights reserved.
+      <footer className="bg-muted text-muted-foreground border-border flex items-center justify-center border-t py-4">
+        <p className="max-w-screen text-center text-sm text-slate-700 dark:text-slate-400">
+          © {new Date().getFullYear()} S.R.L ITGROUP & SERVICES. All rights
+          reserved.
         </p>
       </footer>
     </div>
