@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import "server-only";
 
 const DATA_FILE = path.join(process.cwd(), "data", "analytics.json");
 const LOCK_FILE = path.join(process.cwd(), "data", "analytics.lock");

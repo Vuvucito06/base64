@@ -4,11 +4,14 @@ FROM node:22-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
+# Install PNPM globally using NPM
+RUN npm install -g pnpm
+
 # Copy package.json and pnpm-lock.yaml to install dependencies
-COPY package.json package-lock.json ./
+COPY package.json pnpm-lock.yaml ./
 
 # Install project dependencies using PNPM
-RUN npm install
+RUN pnpm install
 
 # Set the environment to production for optimized builds
 ENV NODE_ENV=production
@@ -17,7 +20,7 @@ ENV NODE_ENV=production
 COPY . .
 
 # Build the Next.js application using PNPM
-RUN npm run build
+RUN pnpm run build
 
 # Install PM2 globally using PNPM to manage the application process
 RUN npm install -g pm2
@@ -26,4 +29,4 @@ RUN npm install -g pm2
 EXPOSE 3000
 
 # Start the application using PM2 and PNPM
-CMD ["pm2-runtime", "npm", "--", "start"]
+CMD ["pm2-runtime", "pnpm", "--", "start"]

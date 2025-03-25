@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google"; // Corrected imports
 import { ThemeProvider } from "next-themes";
-import { registerPageView } from "@/lib/analytics";
 import "./globals.css";
 
 const openSans = Open_Sans({
@@ -20,7 +19,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  registerPageView();
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${openSans.variable} antialiased`}>
