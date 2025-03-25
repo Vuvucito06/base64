@@ -26,4 +26,4 @@ RUN npm install -g pm2
 EXPOSE 3000
 
 # Start the application using PM2 and PNPM
-CMD ["pm2-runtime", "pnpm", "--", "start"]
+CMD ["pm2-runtime", "npm", "--", "start"]
