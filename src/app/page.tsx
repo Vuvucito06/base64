@@ -6,6 +6,7 @@ import OptionsSection from "@/components/OptionsSection";
 import OutputSection from "@/components/OutputSection";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useDebouncedCallback } from "use-debounce";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export default function Home() {
   const [inputText, setInputText] = useState("");
@@ -91,6 +92,7 @@ export default function Home() {
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col justify-between">
+      <GoogleAnalytics gaId="G-8PXWW17ZN6" />
       <div className="flex items-center justify-center px-6 py-4">
         <div className="w-full max-w-5xl space-y-10">
           <div className="flex items-center justify-between">
